@@ -441,4 +441,22 @@ document.addEventListener('click',e=>{const a=e.target.closest('a[href]');if(!a|
 
 
 
+
+<script>
+/* Отметки блоков для Метрики: до какого блока долистал человек */
+(function(){
+  var names=['','blok_02_rko','blok_03_shema','blok_04_platyat','blok_05_proofs','blok_06_case','blok_07_kto','blok_08_komu','blok_09_faq','blok_10_razbor','blok_11_final'];
+  function go(){
+    var secs=document.querySelectorAll('section'); var seen={};
+    if(!('IntersectionObserver' in window)) return;
+    var io=new IntersectionObserver(function(es){ es.forEach(function(e){
+      if(!e.isIntersecting) return; var i=[].indexOf.call(secs,e.target); var n=names[i];
+      if(n && !seen[n]){ seen[n]=1; try{ ym(114253990,'reachGoal',n); }catch(x){} io.unobserve(e.target); }
+    }); },{threshold:0.25});
+    for(var i=1;i<secs.length&&i<names.length;i++) io.observe(secs[i]);
+    setTimeout(function(){ try{ ym(114253990,'reachGoal','time_30s'); }catch(x){} },30000);
+  }
+  if(document.readyState==='loading') document.addEventListener('DOMContentLoaded',go); else go();
+})();
+</script>
 </body></html>
